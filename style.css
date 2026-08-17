@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px 5%;
+}
+
+.store {
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 55px;
+    margin-bottom: 40px;
+}
+
+.shoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* CARD */
+
+.card {
+    width: calc(33.333% - 20px);
+    background: white;
+    padding: 15px;
+    border-radius: 25px;
+    overflow: hidden;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    transition: transform 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+}
+
+
+/* IMAGE */
+
+.image {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    transition: transform 0.6s ease;
+}
+
+.card:hover .image img {
+    transform: scale(1.08);
+}
+
+
+/* DETAILS BELOW IMAGE */
+
+.details {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 20px 5px 10px;
+}
+
+
+/* DESCRIPTION */
+
+.description {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.description p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+}
+
+.description p:first-child {
+    font-size: 19px;
+    font-weight: bold;
+    color: #222;
+}
+
+
+/* CART */
+
+.cart {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+}
+
+.cart img:hover {
+    transform: scale(1.2) rotate(-8deg);
+}
+
+
+/* TABLET */
+
+@media (max-width: 992px) {
+
+    .card {
+        width: calc(50% - 15px);
+    }
+
+    h1 {
+        font-size: 45px;
+    }
+
+    .image {
+        height: 320px;
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 25px 5%;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .image {
+        height: 300px;
+    }
+
+    .description p:first-child {
+        font-size: 18px;
+    }
+
+    .cart img {
+        width: 40px;
+        height: 40px;
+    }
+}
