@@ -84,8 +84,19 @@ router.post("/", authMiddleware, async (req, res) => {
                 item.size === size
         );
 
+        const requestedQuantity =
+            (existingItem ? existingItem.quantity : 0) +
+            Number(quantity);
+
+        // Check available stock
+        if (requestedQuantity > product.stock) {
+            return res.status(400).json({
+                message: `Only ${product.stock} pair${product.stock === 1 ? "" : "s"} of ${product.name} available in stock.`
+            });
+        }
+
         if (existingItem) {
-            existingItem.quantity += Number(quantity);
+            existingItem.quantity = requestedQuantity;
         } else {
             cart.items.push({
                 product: product._id,
@@ -146,6 +157,23 @@ router.put("/:itemId", authMiddleware, async (req, res) => {
         if (!item) {
             return res.status(404).json({
                 message: "Cart item not found"
+            });
+        }
+
+        const product = await Product.findOne({
+            productId: item.productId
+        });
+
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
+        // Check available stock
+        if (Number(quantity) > product.stock) {
+            return res.status(400).json({
+                message: `Only ${product.stock} pair${product.stock === 1 ? "" : "s"} of ${product.name} available in stock.`
             });
         }
 
@@ -243,7 +271,7 @@ router.delete("/", authMiddleware, async (req, res) => {
             message: "Failed to clear cart"
         });
     }
-    
+
 });
 
 

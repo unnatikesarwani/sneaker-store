@@ -64,6 +64,16 @@ const orderSchema = new mongoose.Schema(
             min: 0
         },
 
+        discountAmount: {
+        type: Number,
+        default: 0
+        },
+    
+        promoCode: {
+        type: String,
+        default: ""
+        },
+
         shippingAddress: {
             fullName: {
                 type: String,
@@ -100,6 +110,11 @@ const orderSchema = new mongoose.Schema(
             type: String,
             enum: ["COD", "ONLINE"],
             default: "COD"
+        },
+
+        razorpayOrderId: {
+            type: String,
+            default: ""
         },
 
         paymentStatus: {

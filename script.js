@@ -393,10 +393,19 @@ function renderSneakers() {
             <h3 class="shoe-title" onclick="handleShoeChoose(${shoe.id})" title="${shoe.name}">${shoe.name}</h3>
             
             <div class="specs">
+              <div class="stock-info">
+                ${Number(shoe.stock) <= 0
+        ? `<span class="out-of-stock">Out of Stock</span>`
+        : Number(shoe.stock) <= 3
+          ? `<span class="low-stock">Only ${shoe.stock} left</span>`
+          : `<span class="in-stock">In Stock</span>`
+      }
+              </div>
               <div class="spec-item">
                 <span class="spec-label">Color:</span>
                 <span class="spec-value">${shoe.color}</span>
               </div>
+              
               <div class="spec-item">
                 <span class="spec-label">Best for:</span>
                 <span class="spec-value">${shoe.bestFor}</span>
@@ -420,13 +429,25 @@ function renderSneakers() {
                 </div>
               </div>
 
-              <button class="add-to-cart-btn" onclick="handleShoeAddToCart(${shoe.id}, '${SIZES[3]}', event)" aria-label="Add ${shoe.name} to cart" title="Add to Bag">
-                <svg class="cart-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-                <span>Add</span>
+              <button
+                  class="add-to-cart-btn"
+                  ${Number(shoe.stock) <= 0 ? 'disabled' : ''}
+                  onclick="handleShoeAddToCart(${shoe.id}, '${SIZES[3]}', event)"
+                  aria-label="Add ${shoe.name} to cart"
+                  title="${Number(shoe.stock) <= 0 ? 'Out of Stock' : 'Add to Bag'}"
+              >
+                  <svg class="cart-btn-icon" viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2">
+                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                      <line x1="3" y1="6" x2="21" y2="6"></line>
+                      <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+
+                  <span>
+                      ${Number(shoe.stock) <= 0 ? 'Out of Stock' : 'Add'}
+                  </span>
               </button>
             </div>
           </div>
@@ -1210,7 +1231,7 @@ function updateCartUI() {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-  let discount = subtotal > 20000 ? Math.round(subtotal * 0.1) : 0;
+  let discount = 0;
   if (appliedPromo) {
     if (appliedPromo.discountPercent) {
       discount += Math.round(subtotal * (appliedPromo.discountPercent / 100));
@@ -1685,11 +1706,22 @@ function openQuickView(shoeId) {
           </div>
           <div class="meta-cell">
             <span class="meta-label">Stock Status</span>
-            <span class="meta-value in-stock">● In Stock (Express Dispatch)</span>
+                ${Number(shoe.stock) <= 0
+      ? `<span class="meta-value out-of-stock">
+                          ● Out of Stock
+                         </span>`
+      : Number(shoe.stock) <= 3
+        ? `<span class="meta-value low-stock">
+                              ● Only ${shoe.stock} pairs left
+                            </span>`
+        : `<span class="meta-value in-stock">
+                              ● ${shoe.stock} pairs available • Express Dispatch
+                            </span>`
+    }
+            </div>
           </div>
-        </div>
 
-        <div class="size-section">
+          <div class="size-section">
           <div class="size-header">
             <span class="size-title">Select Size (UK)</span>
             <span class="size-guide-link" onclick="showToast('Jordan 1 fits true to size (TTS).', 'info')">Size Guide</span>
@@ -1705,14 +1737,27 @@ function openQuickView(shoeId) {
         </div>
 
         <div class="modal-actions">
-          <button class="btn btn-primary modal-cart-btn" onclick="addModalItemToCart()">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <path d="M16 10a4 4 0 0 1-8 0"></path>
-            </svg>
-            Add to Bag • ${formatINR(shoe.price)}
-          </button>
+          <button
+             class="btn btn-primary modal-cart-btn"
+             onclick="addModalItemToCart()"
+             ${Number(shoe.stock) <= 0 ? 'disabled' : ''}
+            >
+             <svg viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2">
+                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                 <line x1="3" y1="6" x2="21" y2="6"></line>
+                 <path d="M16 10a4 4 0 0 1-8 0"></path>
+             </svg>
+         
+             ${Number(shoe.stock) <= 0
+      ? "Out of Stock"
+      : `Add to Bag • ${formatINR(shoe.price)}`
+    }
+         </button>
           
           <button class="modal-wishlist-btn ${wishlist.includes(shoe.id) ? 'active' : ''}" 
                   onclick="toggleWishlist(${shoe.id}); this.classList.toggle('active');" 
@@ -1840,7 +1885,7 @@ async function handlePlaceOrder(e) {
   if (placeOrderBtn) {
     placeOrderBtn.disabled = true;
     placeOrderBtn.innerHTML =
-      `<span>⏳ Placing Your Order...</span>`;
+      `<span>⏳ Processing Your Order...</span>`;
   }
 
   // ------------------------------------------
@@ -1903,8 +1948,17 @@ async function handlePlaceOrder(e) {
   try {
 
     // ------------------------------------------
-    // Send order to backend
+    // Determine payment method
     // ------------------------------------------
+
+    const paymentMethod =
+      selectedPayment === "cod"
+        ? "COD"
+        : "ONLINE";
+    // ==========================================
+    // STEP 1
+    // CREATE OUR MONGODB ORDER
+    // ==========================================
 
     const response = await fetch(
       "http://localhost:5000/api/orders",
@@ -1919,10 +1973,9 @@ async function handlePlaceOrder(e) {
         body: JSON.stringify({
           shippingAddress: shippingAddress,
 
-          paymentMethod:
-            selectedPayment === "upi"
-              ? "ONLINE"
-              : "COD"
+          paymentMethod: paymentMethod,
+
+          promoCode: appliedPromo?.code || ""
         })
       }
     );
@@ -1931,11 +1984,13 @@ async function handlePlaceOrder(e) {
 
     console.log("Order response:", data);
 
+
     // ------------------------------------------
     // Backend error
     // ------------------------------------------
 
     if (!response.ok) {
+
       showToast(
         data.message || "Unable to place order.",
         "warn"
@@ -1950,121 +2005,364 @@ async function handlePlaceOrder(e) {
       return;
     }
 
-    // ------------------------------------------
-    // Order successfully created
-    // ------------------------------------------
 
     const order = data.order;
 
     console.log(
-      "Order successfully created in MongoDB:",
+      "MongoDB Order Created:",
       order
     );
 
-    // ------------------------------------------
-    // Clear frontend cart
-    // Backend has already cleared MongoDB cart
-    // ------------------------------------------
 
-    const purchasedItems = [...cart];
+    // ==========================================
+    // COD FLOW
+    // ==========================================
 
-    cart = [];
+    if (paymentMethod === "COD") {
 
-    appliedPromo = null;
+      // Backend already:
+      // 1. Deducted stock
+      // 2. Cleared cart
 
-    updateCartUI();
+      cart = [];
 
-    // ------------------------------------------
-    // Reset button
-    // ------------------------------------------
+      appliedPromo = null;
 
-    if (placeOrderBtn) {
-      placeOrderBtn.disabled = false;
+      updateCartUI();
 
-      placeOrderBtn.innerHTML =
-        `<span>🔒 Place Order & Pay Now</span>`;
+      await loadProductsFromBackend();
+      await loadCartFromBackend();
+     
+
+      // ----------------------------------------
+      // Reset button
+      // ----------------------------------------
+
+      if (placeOrderBtn) {
+        placeOrderBtn.disabled = false;
+
+        placeOrderBtn.innerHTML =
+          `<span>🔒 Place Order & Pay Now</span>`;
+      }
+
+
+      // ----------------------------------------
+      // Close checkout
+      // ----------------------------------------
+
+      closeCheckoutModal();
+
+
+      // ----------------------------------------
+      // Show success modal
+      // ----------------------------------------
+
+      showOrderSuccessModal(order);
+
+
+      showToast(
+        `🎉 Order <strong>#${order.id}</strong> placed successfully!`,
+        "love"
+      );
+
+      return;
     }
 
-    // ------------------------------------------
-    // Close checkout
-    // ------------------------------------------
 
-    closeCheckoutModal();
+    // ==========================================
+    // ONLINE PAYMENT FLOW
+    // ==========================================
 
-    // ------------------------------------------
-    // Show success modal
-    // ------------------------------------------
+    if (paymentMethod === "ONLINE") {
 
-    const successOrderId =
-      document.getElementById("successOrderId");
+      if (typeof Razorpay === "undefined") {
 
-    const orderItemsSummary =
-      document.getElementById("orderItemsSummary");
+        showToast(
+          "Razorpay Checkout could not be loaded.",
+          "warn"
+        );
 
-    if (successOrderId) {
-      successOrderId.textContent =
-        `ORDER #${order.id}`;
+        if (placeOrderBtn) {
+          placeOrderBtn.disabled = false;
+
+          placeOrderBtn.innerHTML =
+            `<span>🔒 Place Order & Pay Now</span>`;
+        }
+
+        return;
+      }
+
+
+      // ----------------------------------------
+      // Create Razorpay Order
+      // ----------------------------------------
+
+      const razorpayResponse = await fetch(
+        "http://localhost:5000/api/payment/create-order",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+
+          body: JSON.stringify({
+            orderId: order.id
+          })
+        }
+      );
+
+
+      const razorpayData =
+        await razorpayResponse.json();
+
+
+      console.log(
+        "Razorpay order response:",
+        razorpayData
+      );
+
+
+      if (!razorpayResponse.ok) {
+
+        showToast(
+          razorpayData.message ||
+          "Unable to start online payment.",
+          "warn"
+        );
+
+        if (placeOrderBtn) {
+          placeOrderBtn.disabled = false;
+
+          placeOrderBtn.innerHTML =
+            `<span>🔒 Place Order & Pay Now</span>`;
+        }
+
+        return;
+      }
+
+
+      // ========================================
+      // OPEN RAZORPAY CHECKOUT
+      // ========================================
+
+      const options = {
+
+        key: "rzp_test_TUkhVVhJ1OIUxQ",
+
+        amount:
+          razorpayData.razorpayOrder.amount,
+
+        currency:
+          razorpayData.razorpayOrder.currency,
+
+        name: "Sneaker Store",
+
+        description: "Sneaker Store Order",
+
+        order_id:
+          razorpayData.razorpayOrder.id,
+
+
+        // --------------------------------------
+        // Successful payment
+        // --------------------------------------
+
+        handler: async function (paymentResponse) {
+
+          try {
+
+            console.log(
+              "Razorpay payment response:",
+              paymentResponse
+            );
+
+
+            // ----------------------------------
+            // Verify payment on backend
+            // ----------------------------------
+
+            const verifyResponse = await fetch(
+              "http://localhost:5000/api/payment/verify",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+                },
+
+                body: JSON.stringify({
+
+                  orderId: order.id,
+
+                  razorpay_order_id:
+                    paymentResponse.razorpay_order_id,
+
+                  razorpay_payment_id:
+                    paymentResponse.razorpay_payment_id,
+
+                  razorpay_signature:
+                    paymentResponse.razorpay_signature
+                })
+              }
+            );
+
+
+            const verifyData =
+              await verifyResponse.json();
+
+
+            console.log(
+              "Payment verification response:",
+              verifyData
+            );
+
+
+            if (!verifyResponse.ok) {
+
+              showToast(
+                verifyData.message ||
+                "Payment verification failed.",
+                "warn"
+              );
+
+              if (placeOrderBtn) {
+                placeOrderBtn.disabled = false;
+
+                placeOrderBtn.innerHTML =
+                  `<span>🔒 Place Order & Pay Now</span>`;
+              }
+
+              return;
+            }
+
+
+            // ==================================
+            // PAYMENT SUCCESS
+            // ==================================
+
+            const paidOrder =
+              verifyData.order;
+
+
+            // Backend has now:
+            // 1. Marked payment PAID
+            // 2. Deducted stock
+            // 3. Cleared cart
+
+            cart = [];
+
+            appliedPromo = null;
+
+            updateCartUI();
+
+
+            // ----------------------------------
+            // Refresh latest backend data
+            // ----------------------------------
+
+            await loadProductsFromBackend();
+            await loadCartFromBackend();
+            await loadOrdersFromBackend();
+
+
+            // ----------------------------------
+            // Reset button
+            // ----------------------------------
+
+            if (placeOrderBtn) {
+
+              placeOrderBtn.disabled = false;
+
+              placeOrderBtn.innerHTML =
+                `<span>🔒 Place Order & Pay Now</span>`;
+            }
+
+
+            // ----------------------------------
+            // Close checkout
+            // ----------------------------------
+
+            closeCheckoutModal();
+
+
+            // ----------------------------------
+            // Show success
+            // ----------------------------------
+
+            showOrderSuccessModal(paidOrder);
+
+
+            showToast(
+              `🎉 Payment successful! Order <strong>#${paidOrder._id}</strong> confirmed.`,
+              "love"
+            );
+
+          } catch (error) {
+
+            console.error(
+              "Payment verification error:",
+              error
+            );
+
+            showToast(
+              "Payment was received but verification failed. Please check your orders.",
+              "warn"
+            );
+
+            if (placeOrderBtn) {
+
+              placeOrderBtn.disabled = false;
+
+              placeOrderBtn.innerHTML =
+                `<span>🔒 Place Order & Pay Now</span>`;
+            }
+          }
+        },
+
+
+        // --------------------------------------
+        // Payment modal closed
+        // --------------------------------------
+
+        modal: {
+
+          ondismiss: function () {
+
+            console.log(
+              "Razorpay checkout closed by user."
+            );
+
+            if (placeOrderBtn) {
+
+              placeOrderBtn.disabled = false;
+
+              placeOrderBtn.innerHTML =
+                `<span>🔒 Place Order & Pay Now</span>`;
+            }
+
+            showToast(
+              "Payment cancelled. Your order is still pending.",
+              "warn"
+            );
+          }
+        }
+      };
+
+
+      // ----------------------------------------
+      // Open Razorpay
+      // ----------------------------------------
+
+      const razorpay =
+        new Razorpay(options);
+
+      razorpay.open();
+
+      return;
     }
-
-    if (orderItemsSummary) {
-
-      orderItemsSummary.innerHTML = `
-                <div style="
-                    font-weight: 700;
-                    margin-bottom: 8px;
-                    font-size: 13px;
-                ">
-                    Items in this Drop:
-                </div>
-
-                ${order.items.map(item => `
-                    <div style="
-                        display: flex;
-                        justify-content: space-between;
-                        font-size: 12.5px;
-                        padding: 4px 0;
-                        border-bottom: 1px solid var(--border-subtle);
-                    ">
-                        <span>
-                            ${item.name}
-                            (${item.size})
-                            × ${item.quantity}
-                        </span>
-
-                        <strong>
-                            ${formatINR(
-        item.price * item.quantity
-      )}
-                        </strong>
-                    </div>
-                `).join("")}
-
-                <div style="
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: 13px;
-                    font-weight: 800;
-                    margin-top: 8px;
-                    color: var(--accent-cyan);
-                ">
-                    <span>Total</span>
-                    <span>
-                        ${formatINR(order.totalAmount)}
-                    </span>
-                </div>
-            `;
-    }
-
-    if (orderSuccessModal && orderSuccessOverlay) {
-      orderSuccessModal.classList.add("open");
-      orderSuccessOverlay.classList.add("active");
-      document.body.style.overflow = "hidden";
-    }
-
-    showToast(
-      `🎉 Order <strong>#${order.id}</strong> placed successfully!`,
-      "love"
-    );
 
   } catch (error) {
 
@@ -2079,11 +2377,114 @@ async function handlePlaceOrder(e) {
     );
 
     if (placeOrderBtn) {
+
       placeOrderBtn.disabled = false;
 
       placeOrderBtn.innerHTML =
         `<span>🔒 Place Order & Pay Now</span>`;
     }
+  }
+}
+
+function showOrderSuccessModal(order) {
+
+  const successOrderId =
+    document.getElementById("successOrderId");
+
+  const orderItemsSummary =
+    document.getElementById("orderItemsSummary");
+
+  // ------------------------------------------
+  // Order ID
+  // ------------------------------------------
+
+  const orderId =
+    order.id || order._id || "N/A";
+
+  if (successOrderId) {
+    successOrderId.textContent =
+      `ORDER #${orderId}`;
+  }
+
+
+  // ------------------------------------------
+  // Order items
+  // ------------------------------------------
+
+  if (orderItemsSummary) {
+
+    const items =
+      Array.isArray(order.items)
+        ? order.items
+        : [];
+
+    orderItemsSummary.innerHTML = `
+
+      <div style="
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-size: 13px;
+      ">
+        Items in this Drop:
+      </div>
+
+      ${items.map(item => `
+          <div style="
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border-subtle);
+          ">
+
+            <span>
+              ${item.name || "Product"}
+              (${item.size || "N/A"})
+              × ${item.quantity || 1}
+            </span>
+
+            <strong>
+              ${formatINR(
+      Number(item.price || 0) *
+      Number(item.quantity || 1)
+    )}
+            </strong>
+
+          </div>
+        `).join("")
+      }
+
+      <div style="
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 800;
+        margin-top: 8px;
+        color: var(--accent-cyan);
+      ">
+
+        <span>Total</span>
+
+        <span>
+          ${formatINR(order.totalAmount || 0)}
+        </span>
+
+      </div>
+    `;
+  }
+
+
+  // ------------------------------------------
+  // Open success modal
+  // ------------------------------------------
+
+  if (orderSuccessModal && orderSuccessOverlay) {
+
+    orderSuccessModal.classList.add("open");
+
+    orderSuccessOverlay.classList.add("active");
+
+    document.body.style.overflow = "hidden";
   }
 }
 
@@ -2165,36 +2566,10 @@ async function loadOrdersFromBackend() {
       return;
     }
 
-    // Convert MongoDB orders into the format
-    // your existing UI expects
-    orderHistory = data.map(order => ({
-      orderId: order._id,
-
-      date: new Date(
-        order.createdAt
-      ).toLocaleDateString(
-        "en-IN",
-        {
-          day: "numeric",
-          month: "short",
-          year: "numeric"
-        }
-      ),
-
-      items: order.items,
-
-      total: formatINR(
-        order.totalAmount
-      ),
-
-      status: order.orderStatus,
-
-      address:
-        `${order.shippingAddress.fullName}, ${order.shippingAddress.city}`,
-
-      payment:
-        order.paymentMethod
-    }));
+    // Keep the MongoDB order structure intact
+    orderHistory = Array.isArray(data)
+      ? data
+      : [];
 
     renderOrdersList();
 
@@ -2221,29 +2596,116 @@ function renderOrdersList() {
       <div class="empty-cart-state" style="display: flex; padding: 30px 20px;">
         <div class="empty-cart-icon">📦</div>
         <h3>No Orders Placed Yet</h3>
-        <p style="color: var(--text-muted); font-size: 14px;">Once you cop any kicks from our drops, your authenticated orders will appear here.</p>
-        <button class="btn btn-primary" onclick="closeOrdersModal();" style="margin-top: 10px;">Browse Drops</button>
+        <p style="color: var(--text-muted); font-size: 14px;">
+          Once you cop any kicks from our drops, your authenticated orders will appear here.
+        </p>
+        <button
+          class="btn btn-primary"
+          onclick="closeOrdersModal();"
+          style="margin-top: 10px;"
+        >
+          Browse Drops
+        </button>
       </div>
     `;
     return;
   }
 
-  container.innerHTML = orderHistory.map(ord => `
-    <div style="padding: 16px; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <strong style="color: var(--accent-cyan); font-size: 14px;">#${ord.orderId}</strong>
-        <span style="font-size: 11px; color: var(--accent-emerald); font-weight: 700; background: rgba(16, 185, 129, 0.15); padding: 2px 8px; border-radius: 4px;">● ${ord.status}</span>
+  container.innerHTML = orderHistory.map(function (ord) {
+
+    const items = Array.isArray(ord.items) ? ord.items : [];
+    const shippingAddress = ord.shippingAddress || {};
+
+    const fullName = shippingAddress.fullName || "N/A";
+    const city = shippingAddress.city || "N/A";
+
+    const date = ord.createdAt
+      ? new Date(ord.createdAt).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      })
+      : "N/A";
+
+    const productNames = items.map(function (item) {
+      const name = item.name || "Unknown Product";
+      const parts = name.split(" ");
+      return parts.slice(0, 2).join(" ");
+    }).join(", ");
+
+    return `
+      <div style="
+        padding: 16px;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-sm);
+      ">
+
+        <div style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+        ">
+          <strong style="
+            color: var(--accent-cyan);
+            font-size: 14px;
+          ">
+            #${ord._id}
+          </strong>
+
+          <span style="
+            font-size: 11px;
+            color: var(--accent-emerald);
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+          ">
+            ● ${ord.orderStatus || "UNKNOWN"}
+          </span>
+        </div>
+
+        <div style="
+          font-size: 12px;
+          color: var(--text-muted);
+          margin-bottom: 8px;
+        ">
+          Placed on: ${date}
+          • Delivery to: ${fullName}, ${city}
+        </div>
+
+        <div style="
+          font-size: 13px;
+          font-weight: 700;
+          color: var(--text-primary);
+          display: flex;
+          justify-content: space-between;
+        ">
+
+          <span>
+            ${items.length}
+            Pair${items.length === 1 ? "" : "s"}
+            ${productNames ? `(${productNames})` : ""}
+          </span>
+
+          <span style="color: var(--accent-cyan);">
+            ${formatINR(ord.totalAmount || 0)}
+          </span>
+
+        </div>
+
+        <button
+          class="order-details-btn"
+          onclick="viewOrderDetails('${ord._id}')"
+        >
+          View Order Details →
+        </button>
+
       </div>
-      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
-        Placed on: ${ord.date} • Delivery to: ${ord.address}
-      </div>
-      <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: flex; justify-content: space-between;">
-        <span>${ord.items.length} Pair${ord.items.length === 1 ? '' : 's'} (${ord.items.map(i => i.name.split(' ')[0] + ' ' + i.name.split(' ')[1]).join(', ')})</span>
-        <span style="color: var(--accent-cyan);">${ord.total}</span>
-      </div>
-      <button class="order-details-btn" onclick="viewOrderDetails('${ord.orderId}')"> View Order Details → </button>
-    </div>
-  `).join('');
+    `;
+
+  }).join("");
 }
 
 // ==========================================================================
@@ -2459,8 +2921,6 @@ async function viewOrderDetails(orderId) {
 
     const order = await response.json();
 
-    console.log("Order details:", order);
-
     if (!response.ok) {
       showToast(
         order.message || "Unable to load order details.",
@@ -2594,8 +3054,22 @@ async function viewOrderDetails(orderId) {
                 <div class="order-payment-row">
                     <span>Payment Status</span>
 
-                    <strong>
-                        ${order.paymentStatus}
+                    <strong style="
+                        color: ${
+                          order.paymentStatus === "PAID"
+                            ? "var(--accent-emerald)"
+                            : order.paymentStatus === "FAILED"
+                            ? "#ef4444"
+                            : "var(--text-muted)"
+                         };
+                    ">
+                        ${
+                          order.paymentStatus === "PAID"
+                            ? "✓ PAID"
+                            : order.paymentStatus === "FAILED"
+                            ? "✕ FAILED"
+                            : "⏳ PENDING"
+                         }
                     </strong>
                 </div>
 
@@ -2644,9 +3118,6 @@ async function cancelOrder(orderId) {
     );
 
     const data = await response.json();
-
-    console.log("Cancel order response:", data);
-
     if (!response.ok) {
       showToast(
         data.message || "Unable to cancel order.",
@@ -2660,6 +3131,13 @@ async function cancelOrder(orderId) {
       "success"
     );
 
+    // Refresh latest product stock from MongoDB
+    await loadProductsFromBackend();
+
+    // Refresh orders list
+    await loadOrdersFromBackend();
+
+    // Refresh order details
     await viewOrderDetails(orderId);
 
   } catch (error) {
@@ -2671,6 +3149,7 @@ async function cancelOrder(orderId) {
     );
   }
 }
+
 function openCancelConfirm(orderId) {
   window.pendingCancelOrderId = orderId;
 

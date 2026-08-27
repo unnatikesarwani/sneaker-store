@@ -13,10 +13,12 @@ const router = express.Router();
 // ==========================================
 
 router.post("/", authMiddleware, async (req, res) => {
+
     try {
         const {
             shippingAddress,
-            paymentMethod = "COD"
+            paymentMethod = "COD",
+            promoCode = ""
         } = req.body;
 
         // ------------------------------
@@ -46,6 +48,47 @@ router.post("/", authMiddleware, async (req, res) => {
                 message: "Invalid payment method"
             });
         }
+        // ------------------------------
+        // Validate promo code
+        // ------------------------------
+
+        const normalizedPromoCode = promoCode.trim().toUpperCase();
+
+        const validPromoCodes = {
+            SNEAKER20: {
+                type: "PERCENT",
+                value: 20
+            },
+
+            GRAIL10: {
+                type: "PERCENT",
+                value: 10
+            },
+
+            DROP500: {
+                type: "FLAT",
+                value: 500
+            }
+        };
+
+        let appliedPromo = null;
+
+        if (normalizedPromoCode) {
+
+            const promo = validPromoCodes[normalizedPromoCode];
+
+            if (!promo) {
+                return res.status(400).json({
+                    message: "Invalid promo code"
+                });
+            }
+
+            appliedPromo = {
+                code: normalizedPromoCode,
+                type: promo.type,
+                value: promo.value
+            };
+        }
 
         // ------------------------------
         // Get user's cart
@@ -66,7 +109,7 @@ router.post("/", authMiddleware, async (req, res) => {
         // ------------------------------
 
         const orderItems = [];
-        let totalAmount = 0;
+        let subtotal = 0;
 
         for (const cartItem of cart.items) {
 
@@ -93,7 +136,7 @@ router.post("/", authMiddleware, async (req, res) => {
 
             const itemTotal = price * cartItem.quantity;
 
-            totalAmount += itemTotal;
+            subtotal += itemTotal;
 
             orderItems.push({
                 product: product._id,
@@ -106,7 +149,35 @@ router.post("/", authMiddleware, async (req, res) => {
                 quantity: cartItem.quantity
             });
         }
+        
+        // ------------------------------
+        // Calculate discount
+        // ------------------------------
 
+        let discountAmount = 0;
+        if (appliedPromo) {
+
+            if (appliedPromo.type === "PERCENT") {
+                discountAmount += Math.round(
+                    subtotal * (appliedPromo.value / 100)
+                );
+            }
+
+            if (appliedPromo.type === "FLAT") {
+                discountAmount += appliedPromo.value;
+            }
+        }
+
+        // Never allow discount to exceed subtotal
+        discountAmount = Math.min(
+            discountAmount,
+            subtotal
+        );
+
+        const totalAmount = Math.max(
+            0,
+            subtotal - discountAmount
+        );
         // ------------------------------
         // Create order
         // ------------------------------
@@ -117,7 +188,8 @@ router.post("/", authMiddleware, async (req, res) => {
             items: orderItems,
 
             totalAmount: totalAmount,
-
+            discountAmount: discountAmount,
+            promoCode: normalizedPromoCode,
             shippingAddress: {
                 fullName: shippingAddress.fullName,
                 phone: shippingAddress.phone,
@@ -136,14 +208,36 @@ router.post("/", authMiddleware, async (req, res) => {
 
             orderStatus: "PLACED"
         });
+        // ------------------------------------------
+        // Deduct stock ONLY for COD orders
+        // ------------------------------------------
+        
+        if (paymentMethod === "COD") {
+        
+            for (const cartItem of cart.items) {
+        
+                const product = await Product.findOne({
+                    productId: cartItem.productId
+                });
+        
+                if (product) {
+        
+                    product.stock =
+                        Number(product.stock) -
+                        Number(cartItem.quantity);
+        
+                    await product.save();
+                }
+            }
+        }
 
         // ------------------------------
         // Clear user's cart
         // ------------------------------
-
-        cart.items = [];
-
-        await cart.save();
+        if (paymentMethod === "COD") {
+            cart.items = [];
+            await cart.save();
+        }
 
         // ------------------------------
         // Send response
@@ -164,7 +258,7 @@ router.post("/", authMiddleware, async (req, res) => {
             }
         });
 
-    } catch (error) {
+    }catch(error) {
 
         console.error("Create order error:", error);
 
@@ -256,12 +350,36 @@ router.patch("/:id/cancel", authMiddleware, async (req, res) => {
                 message: `Order cannot be cancelled because it is already ${order.orderStatus}`
             });
         }
+        // ------------------------------------------
+// Restore stock only if stock was deducted
+// ------------------------------------------
+
+if (
+    order.paymentMethod === "COD" ||
+    order.paymentStatus === "PAID"
+) {
+
+    for (const orderItem of order.items) {
+
+        const product = await Product.findOne({
+            productId: orderItem.productId
+        });
+
+        if (product) {
+
+            product.stock =
+                Number(product.stock) +
+                Number(orderItem.quantity);
+
+            await product.save();
+        }
+    }
+}
 
         // Change order status
         order.orderStatus = "CANCELLED";
 
         await order.save();
-
         res.status(200).json({
             message: "Order cancelled successfully",
             order: order

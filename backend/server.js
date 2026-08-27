@@ -12,6 +12,10 @@ const orderRoutes = require("./routes/orderRoutes");
 
 dotenv.config();
 
+const paymentRoutes = require("./routes/paymentRoutes");
+
+    
+
 connectDB();
 
 const app = express();
@@ -23,6 +27,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
     res.json({
