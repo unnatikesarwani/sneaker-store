@@ -2517,7 +2517,6 @@ async function loadOrdersFromBackend() {
     renderOrdersList();
     return;
   }
-
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/orders`,
