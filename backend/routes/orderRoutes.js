@@ -33,10 +33,51 @@ router.post("/", authMiddleware, async (req, res) => {
             !shippingAddress.city ||
             !shippingAddress.state ||
             !shippingAddress.pincode
-        ) {
+        ) 
+        {
             return res.status(400).json({
                 message: "Complete shipping address is required"
             });
+        }
+        
+        // ------------------------------------------
+        // Validate phone and pincode
+        // ------------------------------------------
+
+        const phoneRegex = /^[6-9]\d{9}$/;
+        const pincodeRegex = /^\d{6}$/;
+
+        if (!phoneRegex.test(shippingAddress.phone)) {
+            return res.status(400).json({
+            message: "Please enter a valid 10-digit phone number"
+            });
+        }
+
+        if (!pincodeRegex.test(shippingAddress.pincode)) {
+            return res.status(400).json({
+            message: "Please enter a valid 6-digit pincode"
+            });
+        }
+
+        // ------------------------------------------
+        // Prevent multiple pending online orders
+        // ------------------------------------------
+
+        if (paymentMethod === "ONLINE") {
+
+            const existingPendingOrder = await Order.findOne({
+                user: req.userId,
+                paymentMethod: "ONLINE",
+                paymentStatus: "PENDING",
+                orderStatus: "PLACED"
+            });
+
+            if (existingPendingOrder) {
+                return res.status(400).json({
+                    message:
+                        "You already have a pending online payment. Please complete or cancel that order first."
+                });
+            }
         }
 
         // ------------------------------

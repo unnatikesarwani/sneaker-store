@@ -1,7 +1,4 @@
-/**
- * SNEAKER STORE - Modern Interactive Engine & Animation Controller
- */
-
+const API_BASE_URL = "http://localhost:5000";
 // 1. Sneaker Catalog Data (12 Verified Models)
 const SNEAKERS_DATA = [
   {
@@ -270,7 +267,7 @@ const formatINR = (val) => '₹' + Number(val).toLocaleString('en-IN');
 // 2. Initialize Application
 async function loadProductsFromBackend() {
   try {
-    const response = await fetch("http://localhost:5000/api/products");
+    const response = await fetch(`${API_BASE_URL}/api/products`);
 
     if (!response.ok) {
       throw new Error("Failed to fetch products");
@@ -632,18 +629,16 @@ async function handleSignInSubmit(e) {
   }
 
   try {
-    const response = await fetch(
-      "http://localhost:5000/api/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email,
-          password
-        })
-      }
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    }
     );
 
     const data = await response.json();
@@ -713,20 +708,18 @@ async function handleRegisterSubmit(e) {
   }
 
   try {
-    const response = await fetch(
-      "http://localhost:5000/api/auth/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          preferredSize
-        })
-      }
+    const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        preferredSize
+      })
+    }
     );
 
     const data = await response.json();
@@ -921,7 +914,7 @@ async function addToCart(shoeId, size = "UK 8", event = null) {
 
   try {
     const response = await fetch(
-      "http://localhost:5000/api/cart",
+      `${API_BASE_URL}/api/cart`,
       {
         method: "POST",
 
@@ -993,14 +986,12 @@ async function loadCartFromBackend() {
   }
 
   try {
-    const response = await fetch(
-      "http://localhost:5000/api/cart",
-      {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
+    const response = await fetch(`${API_BASE_URL}/api/cart`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
       }
+    }
     );
 
     const data = await response.json();
@@ -1068,7 +1059,7 @@ async function updateCartQuantity(index, delta) {
   }
 
   try {
-    const url = `http://localhost:5000/api/cart/${item.cartItemId}`;
+    const url = `${API_BASE_URL}/api/cart/${item.cartItemId}`;
 
     console.log("PUT URL:", url);
     console.log("PUT payload:", {
@@ -1149,7 +1140,7 @@ async function removeCartItem(index) {
   }
 
   try {
-    const url = `http://localhost:5000/api/cart/${item.cartItemId}`;
+    const url = `${API_BASE_URL}/api/cart/${item.cartItemId}`;
 
     console.log("DELETE URL:", url);
 
@@ -1356,15 +1347,13 @@ async function toggleWishlist(shoeId, event = null) {
 
     if (alreadyInWishlist) {
 
-      const response = await fetch(
-        `http://localhost:5000/api/wishlist/${shoeId}`,
-        {
-          method: "DELETE",
+      const response = await fetch(`${API_BASE_URL}/api/wishlist/${shoeId}`, {
+        method: "DELETE",
 
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
+        headers: {
+          "Authorization": `Bearer ${token}`
         }
+      }
       );
 
       const data = await response.json();
@@ -1395,20 +1384,18 @@ async function toggleWishlist(shoeId, event = null) {
 
     else {
 
-      const response = await fetch(
-        "http://localhost:5000/api/wishlist",
-        {
-          method: "POST",
+      const response = await fetch(`${API_BASE_URL}/api/wishlist`, {
+        method: "POST",
 
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
 
-          body: JSON.stringify({
-            productId: shoeId
-          })
-        }
+        body: JSON.stringify({
+          productId: shoeId
+        })
+      }
       );
 
       const data = await response.json();
@@ -1460,15 +1447,13 @@ async function loadWishlistFromBackend() {
   }
 
   try {
-    const response = await fetch(
-      "http://localhost:5000/api/wishlist",
-      {
-        method: "GET",
+    const response = await fetch(`${API_BASE_URL}/api/wishlist`, {
+      method: "GET",
 
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
+      headers: {
+        "Authorization": `Bearer ${token}`
       }
+    }
     );
 
     const data = await response.json();
@@ -1588,14 +1573,12 @@ async function moveWishlistToBag(shoeId) {
     await handleShoeAddToCart(shoeId, "UK 8");
 
     // 2. Remove item from MongoDB wishlist
-    const response = await fetch(
-      `http://localhost:5000/api/wishlist/${shoeId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
+    const response = await fetch(`${API_BASE_URL}/api/wishlist/${shoeId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
       }
+    }
     );
 
     const data = await response.json();
@@ -1825,7 +1808,7 @@ function openCheckoutModal() {
 
   // Update checkout calculation
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  let discount = subtotal > 20000 ? Math.round(subtotal * 0.1) : 0;
+  let discount = 0;
   if (appliedPromo) {
     if (appliedPromo.discountPercent) {
       discount += Math.round(subtotal * (appliedPromo.discountPercent / 100));
@@ -1960,24 +1943,22 @@ async function handlePlaceOrder(e) {
     // CREATE OUR MONGODB ORDER
     // ==========================================
 
-    const response = await fetch(
-      "http://localhost:5000/api/orders",
-      {
-        method: "POST",
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
+      method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
 
-        body: JSON.stringify({
-          shippingAddress: shippingAddress,
+      body: JSON.stringify({
+        shippingAddress: shippingAddress,
 
-          paymentMethod: paymentMethod,
+        paymentMethod: paymentMethod,
 
-          promoCode: appliedPromo?.code || ""
-        })
-      }
+        promoCode: appliedPromo?.code || ""
+      })
+    }
     );
 
     const data = await response.json();
@@ -2032,7 +2013,6 @@ async function handlePlaceOrder(e) {
 
       await loadProductsFromBackend();
       await loadCartFromBackend();
-     
 
       // ----------------------------------------
       // Reset button
@@ -2098,7 +2078,7 @@ async function handlePlaceOrder(e) {
       // ----------------------------------------
 
       const razorpayResponse = await fetch(
-        "http://localhost:5000/api/payment/create-order",
+        `${API_BASE_URL}/api/payment/create-order`,
         {
           method: "POST",
 
@@ -2183,30 +2163,28 @@ async function handlePlaceOrder(e) {
             // Verify payment on backend
             // ----------------------------------
 
-            const verifyResponse = await fetch(
-              "http://localhost:5000/api/payment/verify",
-              {
-                method: "POST",
+            const verifyResponse = await fetch(`${API_BASE_URL}/api/payment/verify`, {
+              method: "POST",
 
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${token}`
-                },
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              },
 
-                body: JSON.stringify({
+              body: JSON.stringify({
 
-                  orderId: order.id,
+                orderId: order.id,
 
-                  razorpay_order_id:
-                    paymentResponse.razorpay_order_id,
+                razorpay_order_id:
+                  paymentResponse.razorpay_order_id,
 
-                  razorpay_payment_id:
-                    paymentResponse.razorpay_payment_id,
+                razorpay_payment_id:
+                  paymentResponse.razorpay_payment_id,
 
-                  razorpay_signature:
-                    paymentResponse.razorpay_signature
-                })
-              }
+                razorpay_signature:
+                  paymentResponse.razorpay_signature
+              })
+            }
             );
 
 
@@ -2542,7 +2520,7 @@ async function loadOrdersFromBackend() {
 
   try {
     const response = await fetch(
-      "http://localhost:5000/api/orders",
+      `${API_BASE_URL}/api/orders`,
       {
         method: "GET",
         headers: {
@@ -2910,7 +2888,7 @@ async function viewOrderDetails(orderId) {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/orders/${orderId}`,
+      `${API_BASE_URL}/api/orders/${orderId}`,
       {
         method: "GET",
         headers: {
@@ -3055,21 +3033,19 @@ async function viewOrderDetails(orderId) {
                     <span>Payment Status</span>
 
                     <strong style="
-                        color: ${
-                          order.paymentStatus === "PAID"
-                            ? "var(--accent-emerald)"
-                            : order.paymentStatus === "FAILED"
-                            ? "#ef4444"
-                            : "var(--text-muted)"
-                         };
+                        color: ${order.paymentStatus === "PAID"
+        ? "var(--accent-emerald)"
+        : order.paymentStatus === "FAILED"
+          ? "#ef4444"
+          : "var(--text-muted)"
+      };
                     ">
-                        ${
-                          order.paymentStatus === "PAID"
-                            ? "✓ PAID"
-                            : order.paymentStatus === "FAILED"
-                            ? "✕ FAILED"
-                            : "⏳ PENDING"
-                         }
+                        ${order.paymentStatus === "PAID"
+        ? "✓ PAID"
+        : order.paymentStatus === "FAILED"
+          ? "✕ FAILED"
+          : "⏳ PENDING"
+      }
                     </strong>
                 </div>
 
@@ -3107,14 +3083,12 @@ async function cancelOrder(orderId) {
     return;
   }
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/orders/${orderId}/cancel`,
-      {
-        method: "PATCH",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
+    const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}/cancel`, {
+      method: "PATCH",
+      headers: {
+        "Authorization": `Bearer ${token}`
       }
+    }
     );
 
     const data = await response.json();
