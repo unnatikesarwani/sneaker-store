@@ -1,50 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNEAKER STORE • Exclusive Kicks & Streetwear Drops</title>
-    <meta name="description" content="Discover premium authentic Jordan & Nike sneaker drops, limited edition grails, high-tops, mids, and lows with fast nationwide delivery.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300f2fe'/%3E%3Cpath d='M4 22c0-.6.4-1 1-1h20c1 0 2 .8 2 1.8 0 1.2-1 2.2-2.2 2.2H6C4.9 25 4 24.1 4 23v-1z' fill='%23ffffff'/%3E%3Cpath d='M5 21l1.2-8.5c.3-1.8 1.6-3.2 3.4-3.5L13 8.3c1.3-.2 2.5.6 2.7 1.9l.4 2.8c.4 1 1.4 1.7 2.4 2l4.2 1.3c1.6.5 2.7 2 2.7 3.7H5z' fill='%230a0d14'/%3E%3Cpath d='M9.5 16.5c3.5-.5 8-2.5 12 1-2.5 1.2-6.5 1.5-10.5 0l-1.5-1z' fill='%23ff2a5f'/%3E%3C/svg%3E">
-    
+    <meta name="description"
+        content="Discover premium authentic Jordan & Nike sneaker drops, limited edition grails, high-tops, mids, and lows with fast nationwide delivery.">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300f2fe'/%3E%3Cpath d='M4 22c0-.6.4-1 1-1h20c1 0 2 .8 2 1.8 0 1.2-1 2.2-2.2 2.2H6C4.9 25 4 24.1 4 23v-1z' fill='%23ffffff'/%3E%3Cpath d='M5 21l1.2-8.5c.3-1.8 1.6-3.2 3.4-3.5L13 8.3c1.3-.2 2.5.6 2.7 1.9l.4 2.8c.4 1 1.4 1.7 2.4 2l4.2 1.3c1.6.5 2.7 2 2.7 3.7H5z' fill='%230a0d14'/%3E%3Cpath d='M9.5 16.5c3.5-.5 8-2.5 12 1-2.5 1.2-6.5 1.5-10.5 0l-1.5-1z' fill='%23ff2a5f'/%3E%3C/svg%3E">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- 1. Navigation Bar -->
     <header class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="logo-wrap" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" role="button" aria-label="SNEAKER STORE Home">
+            <div class="logo-wrap" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" role="button"
+                aria-label="SNEAKER STORE Home">
                 <div class="logo-badge">
                     <svg class="logo-icon-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="logoSwooshGrad" x1="10" y1="17" x2="26" y2="19" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#00f2fe"/>
-                                <stop offset="1" stop-color="#ff2a5f"/>
+                            <linearGradient id="logoSwooshGrad" x1="10" y1="17" x2="26" y2="19"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#00f2fe" />
+                                <stop offset="1" stop-color="#ff2a5f" />
                             </linearGradient>
-                            <linearGradient id="soleLightGrad" x1="4" y1="24" x2="32" y2="28" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#ffffff"/>
-                                <stop offset="1" stop-color="#cbd5e1"/>
+                            <linearGradient id="soleLightGrad" x1="4" y1="24" x2="32" y2="28"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#ffffff" />
+                                <stop offset="1" stop-color="#cbd5e1" />
                             </linearGradient>
                         </defs>
                         <!-- Outsole & Midsole -->
-                        <path d="M4 25C4 24.17 4.67 23.5 5.5 23.5H29.5C30.6 23.5 31.5 24.4 31.5 25.5C31.5 26.88 30.38 28 29 28H6.5C5.12 28 4 26.88 4 25.5V25Z" fill="url(#soleLightGrad)"/>
-                        <rect x="7" y="24.5" width="5.5" height="2" rx="1" fill="#00f2fe"/>
-                        <rect x="14.5" y="24.5" width="3.5" height="2" rx="1" fill="#00f2fe" opacity="0.75"/>
+                        <path
+                            d="M4 25C4 24.17 4.67 23.5 5.5 23.5H29.5C30.6 23.5 31.5 24.4 31.5 25.5C31.5 26.88 30.38 28 29 28H6.5C5.12 28 4 26.88 4 25.5V25Z"
+                            fill="url(#soleLightGrad)" />
+                        <rect x="7" y="24.5" width="5.5" height="2" rx="1" fill="#00f2fe" />
+                        <rect x="14.5" y="24.5" width="3.5" height="2" rx="1" fill="#00f2fe" opacity="0.75" />
                         <!-- Upper Sneaker Body -->
-                        <path d="M5.2 23.2L6.6 13.8C6.9 11.6 8.5 9.8 10.7 9.4L14.8 8.6C16.4 8.3 17.9 9.3 18.2 10.9L18.6 14.2C19.1 15.4 20.3 16.3 21.6 16.7L26.5 18.2C28.4 18.8 29.7 20.6 29.7 22.6V23.2H5.2Z" fill="#0b0f19" stroke="#ffffff" stroke-width="0.75" stroke-linejoin="round"/>
+                        <path
+                            d="M5.2 23.2L6.6 13.8C6.9 11.6 8.5 9.8 10.7 9.4L14.8 8.6C16.4 8.3 17.9 9.3 18.2 10.9L18.6 14.2C19.1 15.4 20.3 16.3 21.6 16.7L26.5 18.2C28.4 18.8 29.7 20.6 29.7 22.6V23.2H5.2Z"
+                            fill="#0b0f19" stroke="#ffffff" stroke-width="0.75" stroke-linejoin="round" />
                         <!-- Wing / Speed Flash / Swoosh -->
-                        <path d="M10.5 17.8C14.8 17.2 20.2 14.8 25 19.2C21.8 20.8 16.8 21.2 11.8 19.4L10.5 17.8Z" fill="url(#logoSwooshGrad)"/>
+                        <path d="M10.5 17.8C14.8 17.2 20.2 14.8 25 19.2C21.8 20.8 16.8 21.2 11.8 19.4L10.5 17.8Z"
+                            fill="url(#logoSwooshGrad)" />
                         <!-- Eyelets & Lacing Details -->
-                        <path d="M11.8 9.5L13.2 15" stroke="#00f2fe" stroke-width="1.2" stroke-linecap="round"/>
-                        <path d="M14.5 10.8L15.8 15.4" stroke="#00f2fe" stroke-width="1.2" stroke-linecap="round"/>
-                        <circle cx="9.2" cy="13.2" r="1.1" fill="#00f2fe"/>
+                        <path d="M11.8 9.5L13.2 15" stroke="#00f2fe" stroke-width="1.2" stroke-linecap="round" />
+                        <path d="M14.5 10.8L15.8 15.4" stroke="#00f2fe" stroke-width="1.2" stroke-linecap="round" />
+                        <circle cx="9.2" cy="13.2" r="1.1" fill="#00f2fe" />
                     </svg>
                 </div>
                 <div class="logo-text-group">
@@ -55,10 +69,12 @@
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="#catalog" class="nav-link active">All Drops</a></li>
-                <li><a href="#catalog" class="nav-link" onclick="currentFilter='high-tops'; renderSneakers();">High-Tops</a></li>
+                <li><a href="#catalog" class="nav-link"
+                        onclick="currentFilter='high-tops'; renderSneakers();">High-Tops</a></li>
                 <li><a href="#catalog" class="nav-link" onclick="currentFilter='mids'; renderSneakers();">Mids</a></li>
                 <li><a href="#catalog" class="nav-link" onclick="currentFilter='lows'; renderSneakers();">Lows</a></li>
-                <li><a href="#catalog" class="nav-link" onclick="currentFilter='limited'; renderSneakers();">Limited Grail</a></li>
+                <li><a href="#catalog" class="nav-link" onclick="currentFilter='limited'; renderSneakers();">Limited
+                        Grail</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -76,9 +92,12 @@
                 </button>
 
                 <!-- Wishlist Trigger -->
-                <button class="action-btn" id="wishlistTriggerBtn" onclick="openWishlistDrawer()" aria-label="Wishlist" title="Wishlist">
+                <button class="action-btn" id="wishlistTriggerBtn" onclick="openWishlistDrawer()" aria-label="Wishlist"
+                    title="Wishlist">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
                     </svg>
                     <span class="action-badge" id="wishlistBadge">0</span>
                 </button>
@@ -95,8 +114,10 @@
 
                 <!-- User Profile / Auth Trigger -->
                 <div class="user-profile-wrap" id="userProfileWrap">
-                    <button class="action-btn auth-btn" id="authTriggerBtn" onclick="handleAuthClick()" aria-label="Sign In / Profile" title="Sign In">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <button class="action-btn auth-btn" id="authTriggerBtn" onclick="handleAuthClick()"
+                        aria-label="Sign In / Profile" title="Sign In">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
@@ -111,7 +132,8 @@
                             </div>
                         </div>
                         <div class="user-dropdown-body">
-                            <div class="dropdown-item" onclick="showToast('You have 1,250 Sneaker Points available for redemption!', 'info')">
+                            <div class="dropdown-item"
+                                onclick="showToast('You have 1,250 Sneaker Points available for redemption!', 'info')">
                                 <span>⚡ Sneaker Rewards</span>
                                 <span class="badge-mini">1,250 Pts</span>
                             </div>
@@ -123,7 +145,8 @@
                             </div>
                             <hr class="dropdown-divider">
                             <button class="dropdown-logout-btn" onclick="logoutUser()">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                    stroke-width="2">
                                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                     <polyline points="16 17 21 12 16 7"></polyline>
                                     <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -158,19 +181,22 @@
                     ELEVATE YOUR <span class="gradient-text">STREETWEAR</span> ROTATION.
                 </h1>
                 <p class="hero-desc">
-                    Discover iconic Air Jordan silhouettes, limited-run hype releases, and verified collector pairs. Guaranteed 100% authentic, deadstock condition.
+                    Discover iconic Air Jordan silhouettes, limited-run hype releases, and verified collector pairs.
+                    Guaranteed 100% authentic, deadstock condition.
                 </p>
                 <div class="hero-actions">
                     <a href="#catalog" class="btn btn-primary">
                         <span>Explore Collection</span>
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
                     </a>
                     <button class="btn btn-secondary" onclick="openQuickView(4)">
                         <span>View Featured Grail</span>
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
                         </svg>
                     </button>
@@ -199,7 +225,7 @@
                 <div class="hero-card-showcase">
                     <div class="hero-glow-ring"></div>
                     <img src="imagess/sneaker 1.jpeg" alt="Air Jordan 1 Retro High Pine Green" class="hero-shoe-img" />
-                    
+
                     <!-- Floating Badges -->
                     <div class="floating-badge badge-top-left">
                         <span class="floating-badge-icon">🔥</span>
@@ -254,7 +280,8 @@
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
-                        <input type="text" id="searchInput" class="search-input" placeholder="Search by model, colorway, or style..." />
+                        <input type="text" id="searchInput" class="search-input"
+                            placeholder="Search by model, colorway, or style..." />
                         <button id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search">✕</button>
                     </div>
 
@@ -294,7 +321,8 @@
         <div class="cart-header">
             <div class="cart-header-title">
                 <span>Shopping Bag</span>
-                <span id="cartCountSummary" style="font-size: 14px; color: var(--text-muted); font-weight: 500;">(0 items)</span>
+                <span id="cartCountSummary" style="font-size: 14px; color: var(--text-muted); font-weight: 500;">(0
+                    items)</span>
             </div>
             <button class="cart-close-btn" id="cartCloseBtn" aria-label="Close Bag">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
@@ -308,7 +336,8 @@
         <div class="empty-cart-state" id="emptyCartView" style="display: flex;">
             <div class="empty-cart-icon">🛍️</div>
             <h3>Your Bag is Empty</h3>
-            <p style="color: var(--text-muted); font-size: 14px;">Looks like you haven't added any kicks to your bag yet.</p>
+            <p style="color: var(--text-muted); font-size: 14px;">Looks like you haven't added any kicks to your bag
+                yet.</p>
             <button class="btn btn-primary" onclick="closeCart()" style="margin-top: 10px;">Start Shopping</button>
         </div>
 
@@ -356,9 +385,11 @@
         <div class="cart-header">
             <div class="cart-header-title">
                 <span>My Saved Grails</span>
-                <span id="wishlistCountSummary" style="font-size: 14px; color: var(--text-muted); font-weight: 500;">(0 items)</span>
+                <span id="wishlistCountSummary" style="font-size: 14px; color: var(--text-muted); font-weight: 500;">(0
+                    items)</span>
             </div>
-            <button class="cart-close-btn" id="wishlistCloseBtn" onclick="closeWishlistDrawer()" aria-label="Close Wishlist">
+            <button class="cart-close-btn" id="wishlistCloseBtn" onclick="closeWishlistDrawer()"
+                aria-label="Close Wishlist">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -391,7 +422,7 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
-        
+
         <!-- Dynamic Selected Shoe Preview Banner -->
         <div class="auth-shoe-banner" id="authShoeBanner" style="display: none;">
             <img src="imagess/sneaker 1.jpeg" alt="Selected Shoe" id="authShoeThumb" class="auth-shoe-thumb" />
@@ -404,7 +435,8 @@
 
         <div class="auth-body">
             <h3 class="auth-header-title" id="authTitle">Sign In to Continue</h3>
-            <p class="auth-header-subtitle" id="authSubtitle">Join the Sneaker Store club to reserve limited pairs, unlock free express shipping & track drops.</p>
+            <p class="auth-header-subtitle" id="authSubtitle">Join the Sneaker Store club to reserve limited pairs,
+                unlock free express shipping & track drops.</p>
 
             <!-- 1-Click Instant Demo Login for Testing -->
             <div class="auth-demo-box">
@@ -417,8 +449,10 @@
 
             <!-- Tabs: Sign In / Create Account -->
             <div class="auth-tabs">
-                <button type="button" class="auth-tab-btn active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign In</button>
-                <button type="button" class="auth-tab-btn" id="tabRegister" onclick="switchAuthTab('register')">Create Account</button>
+                <button type="button" class="auth-tab-btn active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign
+                    In</button>
+                <button type="button" class="auth-tab-btn" id="tabRegister" onclick="switchAuthTab('register')">Create
+                    Account</button>
             </div>
 
             <!-- Sign In Form -->
@@ -426,14 +460,17 @@
                 <div class="form-group">
                     <label class="form-label" for="loginEmail">Email Address</label>
                     <div class="form-input-wrap">
-                        <input type="email" id="loginEmail" class="form-input" placeholder="alex@sneakerstore.com" required value="alex.rivera@sneakers.io" />
+                        <input type="email" id="loginEmail" class="form-input" placeholder="alex@sneakerstore.com"
+                            required value="alex.rivera@sneakers.io" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="loginPassword">Password</label>
                     <div class="form-input-wrap">
-                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required value="password123" />
-                        <span class="password-toggle-btn" onclick="togglePasswordVisibility('loginPassword', this)">👁️</span>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required
+                            value="password123" />
+                        <span class="password-toggle-btn"
+                            onclick="togglePasswordVisibility('loginPassword', this)">👁️</span>
                     </div>
                 </div>
                 <div class="form-options-row">
@@ -441,11 +478,13 @@
                         <input type="checkbox" id="rememberMe" checked />
                         <span>Remember me</span>
                     </label>
-                    <a href="javascript:void(0)" onclick="showToast('Password reset link sent to your email!', 'info')" style="color: var(--accent-cyan);">Forgot password?</a>
+                    <a href="javascript:void(0)" onclick="showToast('Password reset link sent to your email!', 'info')"
+                        style="color: var(--accent-cyan);">Forgot password?</a>
                 </div>
                 <button type="submit" class="auth-submit-btn">
                     <span>Sign In & Continue</span>
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
@@ -463,14 +502,17 @@
                 <div class="form-group">
                     <label class="form-label" for="regEmail">Email Address</label>
                     <div class="form-input-wrap">
-                        <input type="email" id="regEmail" class="form-input" placeholder="jordan@example.com" required />
+                        <input type="email" id="regEmail" class="form-input" placeholder="jordan@example.com"
+                            required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="regPassword">Password</label>
                     <div class="form-input-wrap">
-                        <input type="password" id="regPassword" class="form-input" placeholder="Minimum 6 characters" required minlength="6" />
-                        <span class="password-toggle-btn" onclick="togglePasswordVisibility('regPassword', this)">👁️</span>
+                        <input type="password" id="regPassword" class="form-input" placeholder="Minimum 6 characters"
+                            required minlength="6" />
+                        <span class="password-toggle-btn"
+                            onclick="togglePasswordVisibility('regPassword', this)">👁️</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -489,7 +531,8 @@
                 </div>
                 <button type="submit" class="auth-submit-btn">
                     <span>Create VIP Account</span>
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
@@ -534,7 +577,8 @@
             </div>
             <div class="form-group" style="margin-top: 10px;">
                 <label class="form-label" for="shipAddress">Street Address / Apartment</label>
-                <input type="text" id="shipAddress" class="form-input" placeholder="Flat 402, Skyline Heights, Linking Road" required />
+                <input type="text" id="shipAddress" class="form-input"
+                    placeholder="Flat 402, Skyline Heights, Linking Road" required />
             </div>
             <div class="checkout-grid-2" style="margin-top: 10px;">
                 <div class="form-group">
@@ -587,7 +631,8 @@
             </div>
 
             <!-- Order Summary Snapshot -->
-            <div class="cart-footer" style="padding: 16px; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-top: 16px;">
+            <div class="cart-footer"
+                style="padding: 16px; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-top: 16px;">
                 <div class="cart-summary-row">
                     <span>Items Subtotal</span>
                     <span id="checkoutSubtotal">₹0</span>
@@ -626,10 +671,13 @@
 
             <div class="order-id-badge" id="successOrderId">ORDER #SNK-884920</div>
 
-            <div id="orderItemsSummary" style="margin: 16px 0; text-align: left; background: var(--bg-tertiary); border-radius: var(--radius-sm); padding: 14px;"></div>
+            <div id="orderItemsSummary"
+                style="margin: 16px 0; text-align: left; background: var(--bg-tertiary); border-radius: var(--radius-sm); padding: 14px;">
+            </div>
 
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
-                Estimated Delivery: <strong style="color: var(--accent-emerald);">2-3 Business Days (Express Air)</strong>
+                Estimated Delivery: <strong style="color: var(--accent-emerald);">2-3 Business Days (Express
+                    Air)</strong>
             </div>
 
             <button class="btn btn-primary" onclick="closeOrderSuccessModal()" style="width: 100%;">
@@ -653,41 +701,34 @@
         <div id="ordersListContainer" style="display: flex; flex-direction: column; gap: 12px;"></div>
     </div>
     <!-- Cancel Order Confirmation -->
-<div class="cancel-confirm-overlay" id="cancelConfirmOverlay">
-    <div class="cancel-confirm-modal" role="dialog" aria-modal="true">
+    <div class="cancel-confirm-overlay" id="cancelConfirmOverlay">
+        <div class="cancel-confirm-modal" role="dialog" aria-modal="true">
 
-        <div class="cancel-confirm-icon">
-            !
+            <div class="cancel-confirm-icon">
+                !
+            </div>
+
+            <div class="cancel-confirm-content">
+                <h3>Cancel Order?</h3>
+
+                <p>
+                    Are you sure you want to cancel this order?
+                    This action cannot be undone.
+                </p>
+            </div>
+
+            <div class="cancel-confirm-actions">
+                <button type="button" class="cancel-confirm-keep" onclick="closeCancelConfirm()">
+                    No, Keep Order
+                </button>
+
+                <button type="button" class="cancel-confirm-delete" onclick="confirmCancelOrder()">
+                    Yes, Cancel Order
+                </button>
+            </div>
+
         </div>
-
-        <div class="cancel-confirm-content">
-            <h3>Cancel Order?</h3>
-
-            <p>
-                Are you sure you want to cancel this order?
-                This action cannot be undone.
-            </p>
-        </div>
-
-        <div class="cancel-confirm-actions">
-            <button
-                type="button"
-                class="cancel-confirm-keep"
-                onclick="closeCancelConfirm()"
-            >
-                No, Keep Order
-            </button>
-
-            <button
-                type="button"
-                class="cancel-confirm-delete"
-                onclick="confirmCancelOrder()">
-                Yes, Cancel Order
-            </button>
-        </div>
-
     </div>
-</div>
 
     <!-- 12. Floating Toast Notifications -->
     <div class="toast-container" id="toastContainer"></div>
@@ -697,21 +738,31 @@
         <div class="footer-container">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <div class="logo-wrap" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" role="button" aria-label="SNEAKER STORE Home">
+                    <div class="logo-wrap" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" role="button"
+                        aria-label="SNEAKER STORE Home">
                         <div class="logo-badge">
-                            <svg class="logo-icon-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="logo-icon-svg" viewBox="0 0 36 36" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <!-- Outsole & Midsole -->
-                                <path d="M4 25C4 24.17 4.67 23.5 5.5 23.5H29.5C30.6 23.5 31.5 24.4 31.5 25.5C31.5 26.88 30.38 28 29 28H6.5C5.12 28 4 26.88 4 25.5V25Z" fill="url(#soleLightGrad)"/>
-                                <rect x="7" y="24.5" width="5.5" height="2" rx="1" fill="#00f2fe"/>
-                                <rect x="14.5" y="24.5" width="3.5" height="2" rx="1" fill="#00f2fe" opacity="0.75"/>
+                                <path
+                                    d="M4 25C4 24.17 4.67 23.5 5.5 23.5H29.5C30.6 23.5 31.5 24.4 31.5 25.5C31.5 26.88 30.38 28 29 28H6.5C5.12 28 4 26.88 4 25.5V25Z"
+                                    fill="url(#soleLightGrad)" />
+                                <rect x="7" y="24.5" width="5.5" height="2" rx="1" fill="#00f2fe" />
+                                <rect x="14.5" y="24.5" width="3.5" height="2" rx="1" fill="#00f2fe" opacity="0.75" />
                                 <!-- Upper Sneaker Body -->
-                                <path d="M5.2 23.2L6.6 13.8C6.9 11.6 8.5 9.8 10.7 9.4L14.8 8.6C16.4 8.3 17.9 9.3 18.2 10.9L18.6 14.2C19.1 15.4 20.3 16.3 21.6 16.7L26.5 18.2C28.4 18.8 29.7 20.6 29.7 22.6V23.2H5.2Z" fill="#0b0f19" stroke="#ffffff" stroke-width="0.75" stroke-linejoin="round"/>
+                                <path
+                                    d="M5.2 23.2L6.6 13.8C6.9 11.6 8.5 9.8 10.7 9.4L14.8 8.6C16.4 8.3 17.9 9.3 18.2 10.9L18.6 14.2C19.1 15.4 20.3 16.3 21.6 16.7L26.5 18.2C28.4 18.8 29.7 20.6 29.7 22.6V23.2H5.2Z"
+                                    fill="#0b0f19" stroke="#ffffff" stroke-width="0.75" stroke-linejoin="round" />
                                 <!-- Wing / Speed Flash / Swoosh -->
-                                <path d="M10.5 17.8C14.8 17.2 20.2 14.8 25 19.2C21.8 20.8 16.8 21.2 11.8 19.4L10.5 17.8Z" fill="url(#logoSwooshGrad)"/>
+                                <path
+                                    d="M10.5 17.8C14.8 17.2 20.2 14.8 25 19.2C21.8 20.8 16.8 21.2 11.8 19.4L10.5 17.8Z"
+                                    fill="url(#logoSwooshGrad)" />
                                 <!-- Eyelets & Lacing Details -->
-                                <path d="M11.8 9.5L13.2 15" stroke="#00f2fe" stroke-width="1.2" stroke-linecap="round"/>
-                                <path d="M14.5 10.8L15.8 15.4" stroke="#00f2fe" stroke-width="1.2" stroke-linecap="round"/>
-                                <circle cx="9.2" cy="13.2" r="1.1" fill="#00f2fe"/>
+                                <path d="M11.8 9.5L13.2 15" stroke="#00f2fe" stroke-width="1.2"
+                                    stroke-linecap="round" />
+                                <path d="M14.5 10.8L15.8 15.4" stroke="#00f2fe" stroke-width="1.2"
+                                    stroke-linecap="round" />
+                                <circle cx="9.2" cy="13.2" r="1.1" fill="#00f2fe" />
                             </svg>
                         </div>
                         <div class="logo-text-group">
@@ -720,9 +771,11 @@
                         </div>
                     </div>
                     <p class="footer-desc">
-                        The ultimate destination for premium sneakerheads, authenticated Jordan grails, and streetwear culture drops.
+                        The ultimate destination for premium sneakerheads, authenticated Jordan grails, and streetwear
+                        culture drops.
                     </p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed! Check your inbox for exclusive drop alerts.', 'success');">
+                    <form class="newsletter-form"
+                        onsubmit="event.preventDefault(); showToast('Subscribed! Check your inbox for exclusive drop alerts.', 'success');">
                         <input type="email" class="newsletter-input" placeholder="Enter your email" required />
                         <button type="submit" class="newsletter-btn">Join</button>
                     </form>
@@ -731,37 +784,54 @@
                 <div class="footer-col">
                     <h4>Categories</h4>
                     <ul class="footer-links">
-                        <li><a href="#catalog" onclick="currentFilter='high-tops'; renderSneakers();">Air Jordan 1 High</a></li>
-                        <li><a href="#catalog" onclick="currentFilter='mids'; renderSneakers();">Air Jordan 1 Mid</a></li>
-                        <li><a href="#catalog" onclick="currentFilter='lows'; renderSneakers();">Air Jordan 1 Low</a></li>
-                        <li><a href="#catalog" onclick="currentFilter='limited'; renderSneakers();">Limited Editions</a></li>
+                        <li><a href="#catalog" onclick="currentFilter='high-tops'; renderSneakers();">Air Jordan 1
+                                High</a></li>
+                        <li><a href="#catalog" onclick="currentFilter='mids'; renderSneakers();">Air Jordan 1 Mid</a>
+                        </li>
+                        <li><a href="#catalog" onclick="currentFilter='lows'; renderSneakers();">Air Jordan 1 Low</a>
+                        </li>
+                        <li><a href="#catalog" onclick="currentFilter='limited'; renderSneakers();">Limited Editions</a>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="footer-col">
                     <h4>Customer Care</h4>
                     <ul class="footer-links">
-                        <li><a href="javascript:void(0)" onclick="showToast('Every pair is inspected by certified authenticators.', 'info')">Authenticity Guarantee</a></li>
-                        <li><a href="javascript:void(0)" onclick="showToast('Orders are packed double-boxed & insured.', 'info')">Shipping & Delivery</a></li>
-                        <li><a href="javascript:void(0)" onclick="showToast('Hassle-free 7-day exchange policy on unworn pairs.', 'info')">Returns & Exchanges</a></li>
-                        <li><a href="javascript:void(0)" onclick="showToast('Jordan 1 fits true to size (TTS).', 'info')">Size Guide</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('Every pair is inspected by certified authenticators.', 'info')">Authenticity
+                                Guarantee</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('Orders are packed double-boxed & insured.', 'info')">Shipping &
+                                Delivery</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('Hassle-free 7-day exchange policy on unworn pairs.', 'info')">Returns
+                                & Exchanges</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('Jordan 1 fits true to size (TTS).', 'info')">Size Guide</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-col">
                     <h4>Connect</h4>
                     <ul class="footer-links">
-                        <li><a href="javascript:void(0)" onclick="showToast('Follow @sneakerstore on Instagram for drop countdowns.', 'info')">Instagram</a></li>
-                        <li><a href="javascript:void(0)" onclick="showToast('Join our Discord community for live sneaker calls.', 'info')">Discord Server</a></li>
-                        <li><a href="javascript:void(0)" onclick="showToast('Twitter / X drop alerts active.', 'info')">Twitter / X</a></li>
-                        <li><a href="javascript:void(0)" onclick="showToast('24/7 Concierge: support@sneakerstore.com', 'info')">Support Concierge</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('Follow @sneakerstore on Instagram for drop countdowns.', 'info')">Instagram</a>
+                        </li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('Join our Discord community for live sneaker calls.', 'info')">Discord
+                                Server</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('Twitter / X drop alerts active.', 'info')">Twitter / X</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showToast('24/7 Concierge: support@sneakerstore.com', 'info')">Support
+                                Concierge</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <div>© 2026 SNEAKER STORE. All Rights Reserved. Built with Pair Programming & Web Standards.</div>
-                <div>Designed with 100% Responsiveness & 60fps Micro-Animations</div>
+                <div>© 2026 SNEAKER STORE. All Rights Reserved</div>
             </div>
         </div>
     </footer>
@@ -770,4 +840,5 @@
     <script src="script.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
+
 </html>
