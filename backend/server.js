@@ -19,11 +19,7 @@ const paymentRoutes = require("./routes/paymentRoutes");
 connectDB();
 
 const app = express();
-app.use(cors({
-    origin: "https://sneaker-store-dbwr0pc8-unnatis-projects-6166e33d.vercel.app",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors());
 app.use(express.json());
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
