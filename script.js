@@ -597,26 +597,6 @@ function togglePasswordVisibility(inputId, toggleEl) {
   }
 }
 
-function quickDemoLogin() {
-  currentUser = {
-    name: "Alex Rivera",
-    email: "alex.rivera@sneakers.io",
-    tier: "VIP Grail Collector",
-    points: 1250,
-    size: "UK 8"
-  };
-  localStorage.setItem('sneaker_user', JSON.stringify(currentUser));
-  updateAuthUI();
-  closeAuthModal();
-  showToast(`Welcome back, <strong>${currentUser.name}</strong>! ⚡ VIP Tier Active`, 'success');
-
-  if (typeof pendingAuthAction === 'function') {
-    const action = pendingAuthAction;
-    pendingAuthAction = null;
-    action();
-  }
-}
-
 async function handleSignInSubmit(e) {
   e.preventDefault();
 

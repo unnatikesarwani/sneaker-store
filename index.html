@@ -438,13 +438,6 @@
             <p class="auth-header-subtitle" id="authSubtitle">Join the Sneaker Store club to reserve limited pairs,
                 unlock free express shipping & track drops.</p>
 
-            <!-- 1-Click Instant Demo Login for Testing -->
-            <div class="auth-demo-box">
-                <button type="button" class="btn-demo-login" onclick="quickDemoLogin()">
-                    <span>⚡ 1-Click Demo Login as VIP Sneakerhead</span>
-                </button>
-            </div>
-
             <div class="auth-divider">or with email</div>
 
             <!-- Tabs: Sign In / Create Account -->
@@ -460,15 +453,15 @@
                 <div class="form-group">
                     <label class="form-label" for="loginEmail">Email Address</label>
                     <div class="form-input-wrap">
-                        <input type="email" id="loginEmail" class="form-input" placeholder="alex@sneakerstore.com"
-                            required value="alex.rivera@sneakers.io" />
+                        <input type="email" id="loginEmail" class="form-input" placeholder="Enter your email"
+                            auto-complete="email" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="loginPassword">Password</label>
                     <div class="form-input-wrap">
-                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required
-                            value="password123" />
+                        <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password"
+                            autocomplete="current-password" required />
                         <span class="password-toggle-btn"
                             onclick="togglePasswordVisibility('loginPassword', this)">👁️</span>
                     </div>
@@ -538,11 +531,6 @@
                     </svg>
                 </button>
             </form>
-
-            <div class="guest-link-row">
-                <span>Want to explore without account? </span>
-                <span class="guest-link" onclick="continueAsGuest()">Continue as Guest</span>
-            </div>
         </div>
     </div>
 

@@ -21,6 +21,16 @@ const userSchema = new mongoose.Schema(
             required: true
         },
 
+        resetPasswordToken: {
+            type: String,
+            default: null
+        },
+
+        resetPasswordExpires: {
+            type: Date,
+            default: null
+        },
+
         preferredSize: {
             type: String,
             default: "UK 8"
